@@ -13,23 +13,25 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   frm = new FormGroup({
-    user: new FormControl(''),
+    username: new FormControl(''),
     password: new FormControl(''),
   });
+  
+  errorMessage: string = '';
 
-  route = inject(Router);
+  router = inject(Router);
   constructor(private srvAuth: AuthService) { }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   onSubmit(): void {
-   let resp = this.srvAuth.login(this.frm.value);
-
-   if (resp) {
-    this.route.navigate(['/pages']);
-   }
+    this.srvAuth.authLogin(this.frm.value).subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/pages']);
+      }
+    );
   }
 
 }
