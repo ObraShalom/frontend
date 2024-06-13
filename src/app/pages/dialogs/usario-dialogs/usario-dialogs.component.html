@@ -1,0 +1,42 @@
+<form [formGroup]="frmUsuarios" (ngSubmit)="submit()">
+  <h2 mat-dialog-title>{{titulo}} </h2>
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <mat-label>Nombre:</mat-label>
+      <input formControlName="name" matInput autocomplete="off" [errorStateMatcher]="matcher">
+      @if (frmUsuarios.hasError('required')) {
+      <mat-error>Nombre es <strong>requerido</strong></mat-error>
+      }
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Usuario:</mat-label>
+      <input formControlName="username" matInput autocomplete="off">
+      <mat-error *ngIf="frmUsuarios.hasError('required')">Usuario es <strong>requerido</strong></mat-error>
+      <mat-error *ngIf="frmUsuarios.hasError('minlength')">Usuario es <strong>requerido</strong></mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Clave:</mat-label>
+      <input type="password" formControlName="password" matInput autocomplete="off">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Obra</mat-label>
+      <mat-select formControlName="idObra">
+        @for (obra of obras; track obra) {
+        <mat-option [value]="obra.id">{{obra.nombre}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" color="primary" cdkFocusInitial>{{tituloBoton}}</button>
+    <button mat-stroked-button type="button" color="accent" (click)="close()">Cancelar</button>
+  </mat-dialog-actions>
+</form>
