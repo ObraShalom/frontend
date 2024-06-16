@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'http://localhost:5132/api'
+    apiUrl: 'http://shalomobra-001-site1.ftempurl.com/api'
 };
