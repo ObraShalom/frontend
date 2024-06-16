@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,8 @@ export class AuthService {
     this.isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   }
   authLogin(value: any): Observable<any> {
+    console.log(this.apiUrl);
+    
     return this._http.post(`${this.apiUrl}/User/Login`, value).pipe(tap((response: any) => {
       if (response && response.token) {
         localStorage.setItem(this.tokenKey, response.token);
